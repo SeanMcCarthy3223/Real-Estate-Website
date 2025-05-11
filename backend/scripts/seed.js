@@ -12,29 +12,29 @@ import Appointment from '../models/appointmentModel.js';
 import Form from '../models/formmodel.js';
 import News from '../models/newsmodel.js';
 
-// Curated list of real estate image URLs from Pexels (or similar free stock sites)
+// Curated list of real estate image URLs from Pexels (or similar free stock sites) - US Focused
 const realEstateImagePool = [
-  // Apartments & Interiors
-  'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Spacious modern living room
-  'https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Stylish apartment living area
-  'https://images.pexels.com/photos/3935320/pexels-photo-3935320.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Cozy apartment bedroom
-  'https://images.pexels.com/photos/7031408/pexels-photo-7031408.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Modern kitchen
-  'https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Apartment living/study
-  'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Bright living room with large windows
-  'https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Apartment exterior/balcony view
+  // Apartments & Interiors (US Style)
+  'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Modern apartment living room
+  'https://images.pexels.com/photos/275484/pexels-photo-275484.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Bright apartment interior
+  'https://images.pexels.com/photos/1571459/pexels-photo-1571459.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Apartment kitchen/dining
+  'https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Urban loft apartment
+  'https://images.pexels.com/photos/6585756/pexels-photo-6585756.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Apartment bedroom
+  // Houses, Villas & Exteriors (US Style)
+  'https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Suburban American house
+  'https://images.pexels.com/photos/209315/pexels-photo-209315.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Modern US house exterior
+  'https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // House with a pool
+  'https://images.pexels.com/photos/221540/pexels-photo-221540.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Large suburban home
+  'https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Two-story family house
 
-  // Houses, Villas & Exteriors
-  'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Classic suburban house
-  'https://images.pexels.com/photos/2089698/pexels-photo-2089698.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Luxury villa exterior
-  'https://images.pexels.com/photos/259962/pexels-photo-259962.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // House with garden
-  'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Modern house exterior
-  'https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Waterfront villa/house
-  'https://images.pexels.com/photos/209296/pexels-photo-209296.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Traditional Indian house style
+  // Luxury / Unique Homes
+  'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Luxury modern home
+  'https://images.pexels.com/photos/208736/pexels-photo-208736.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Beachfront property
 
   // Commercial / Plot (more generic but can fit)
-  'https://images.pexels.com/photos/269077/pexels-photo-269077.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Modern office building exterior
-  'https://images.pexels.com/photos/221024/pexels-photo-221024.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Office interior
-  'https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Aerial view of land/plots
+  'https://images.pexels.com/photos/374870/pexels-photo-374870.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Downtown office building
+  'https://images.pexels.com/photos/267507/pexels-photo-267507.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1', // Modern office interior
+  'https://images.pexels.com/photos/53610/large-home-residential-house-architecture-53610.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1' // Large residential plot / land
 ];
 
 let imageIndex = 0;
@@ -105,161 +105,161 @@ const importData = async () => {
     const regularUser2 = createdUsers[2];
     console.log('Users Imported...');
 
-    // --- Create Properties ---
+    // --- Create Properties (US Cities & USD) ---
     const propertiesToCreate = [
       {
-        title: 'Spacious Downtown Apartment',
-        location: 'Mumbai, Maharashtra',
-        price: 7500000,
-        image: getPropertyImages(2), // Gets 2 images from the pool
+        title: 'Spacious Downtown Loft',
+        location: 'New York, NY',
+        price: 1250000, // USD
+        image: getPropertyImages(2),
         beds: 2,
         baths: 2,
-        sqft: 1200,
-        type: 'Apartment',
-        availability: 'Ready to move',
-        description: 'A beautiful and spacious apartment in the heart of downtown Mumbai, offering stunning city views and modern amenities.',
-        amenities: ['Swimming Pool', 'Gym', 'Parking', '24/7 Security'],
-        phone: '9876543210',
+        sqft: 1500,
+        type: 'Apartment', // Loft can be a type of apartment
+        availability: 'For Sale',
+        description: 'A beautiful and spacious loft in the heart of downtown New York, offering stunning city views and modern amenities.',
+        amenities: ['Rooftop Deck', 'Fitness Center', 'Concierge', 'Valet Parking'],
+        phone: '555-0100',
       },
       {
-        title: 'Luxury Villa with Sea View',
-        location: 'Goa',
-        price: 25000000,
+        title: 'Luxury Beachfront Villa',
+        location: 'Malibu, CA',
+        price: 7800000, // USD
         image: getPropertyImages(2),
         beds: 4,
         baths: 5,
-        sqft: 3500,
+        sqft: 4200,
         type: 'Villa',
-        availability: 'Under Construction',
-        description: 'Experience luxury living in this stunning sea-view villa in Goa, complete with a private pool and garden.',
-        amenities: ['Private Pool', 'Garden', 'Sea View', 'Modular Kitchen'],
-        phone: '9876543211',
+        availability: 'For Sale',
+        description: 'Experience luxury living in this stunning beachfront villa in Malibu, complete with a private pool and direct beach access.',
+        amenities: ['Private Pool', 'Oceanfront', 'Home Theater', 'Gourmet Kitchen'],
+        phone: '555-0101',
       },
       {
-        title: 'Cozy Suburban House',
-        location: 'Bangalore, Karnataka',
-        price: 9000000,
+        title: 'Cozy Suburban Family Home',
+        location: 'Austin, TX',
+        price: 650000, // USD
         image: getPropertyImages(2),
         beds: 3,
-        baths: 2,
-        sqft: 1800,
+        baths: 2.5,
+        sqft: 2200,
         type: 'House',
-        availability: 'Ready to move',
-        description: 'A charming and cozy house in a quiet suburban neighborhood of Bangalore, perfect for families.',
-        amenities: ['Garden', 'Play Area', 'Covered Parking'],
-        phone: '9876543212',
+        availability: 'For Sale',
+        description: 'A charming and cozy house in a quiet suburban neighborhood of Austin, perfect for families, with a large backyard.',
+        amenities: ['Large Backyard', 'Play Area', 'Two-Car Garage', 'Community Pool'],
+        phone: '555-0102',
       },
       {
         title: 'Modern Studio Apartment',
-        location: 'Pune, Maharashtra',
-        price: 4500000,
+        location: 'Chicago, IL',
+        price: 320000, // USD
         image: getPropertyImages(1),
-        beds: 1,
+        beds: 1, // Studio often means 0 or 1 bed
         baths: 1,
-        sqft: 600,
+        sqft: 650,
         type: 'Studio',
-        availability: 'Ready to move',
-        description: 'A sleek and modern studio apartment in Pune, ideal for young professionals or students.',
-        amenities: ['Gym', 'Community Hall', 'Power Backup'],
-        phone: '9876543213',
+        availability: 'For Rent',
+        description: 'A sleek and modern studio apartment in Chicago, ideal for young professionals or students, close to public transport.',
+        amenities: ['In-unit Laundry', 'Gym', 'Rooftop Lounge', 'Pet Friendly'],
+        phone: '555-0103',
       },
       {
-        title: 'Penthouse with Rooftop Terrace',
-        location: 'Delhi NCR',
-        price: 30000000,
+        title: 'Penthouse with Panoramic Views',
+        location: 'San Francisco, CA',
+        price: 4500000, // USD
         image: getPropertyImages(2),
         beds: 3,
-        baths: 4,
+        baths: 3,
         sqft: 2800,
         type: 'Penthouse',
-        availability: 'Ready to move',
-        description: 'Luxurious penthouse in Delhi NCR with a private rooftop terrace and panoramic city views.',
-        amenities: ['Rooftop Terrace', 'Jacuzzi', 'Home Theatre', 'Servant Quarters'],
-        phone: '9876543214',
+        availability: 'For Sale',
+        description: 'Luxurious penthouse in San Francisco with a private rooftop terrace and panoramic city and bay views.',
+        amenities: ['Private Elevator', 'Rooftop Terrace', 'Smart Home System', 'Wine Cellar'],
+        phone: '555-0104',
       },
       {
-        title: 'Affordable 1BHK Flat',
-        location: 'Chennai, Tamil Nadu',
-        price: 3500000,
+        title: 'Affordable Urban Condo',
+        location: 'Philadelphia, PA',
+        price: 280000, // USD
         image: getPropertyImages(1),
         beds: 1,
         baths: 1,
-        sqft: 550,
-        type: 'Apartment',
-        availability: 'New Launch',
-        description: 'An affordable 1BHK flat in a developing area of Chennai, great for first-time homebuyers.',
-        amenities: ['Lift', 'Parking', 'Security'],
-        phone: '9876543215',
+        sqft: 750,
+        type: 'Condo', // Condo is a common US term
+        availability: 'For Sale',
+        description: 'An affordable 1-bedroom condo in a vibrant area of Philadelphia, great for first-time homebuyers or investors.',
+        amenities: ['Shared Courtyard', 'Bike Storage', 'Low HOA Fees'],
+        phone: '555-0105',
       },
       {
-        title: 'Commercial Office Space',
-        location: 'Hyderabad, Telangana',
-        price: 12000000,
-        image: [realEstateImagePool[13], realEstateImagePool[14]], // Specifically picking office images
+        title: 'Prime Commercial Space',
+        location: 'Seattle, WA',
+        price: 2200000, // USD
+        image: [realEstateImagePool[12], realEstateImagePool[13]], // Specifically picking office images
         beds: 0,
-        baths: 2,
-        sqft: 2000,
+        baths: 2, // Common restrooms
+        sqft: 3000,
         type: 'Commercial',
         availability: 'For Lease',
-        description: 'Prime commercial office space in the IT hub of Hyderabad, suitable for startups and established businesses.',
-        amenities: ['Conference Room', 'Pantry', 'Reception Area', 'High-Speed Internet'],
-        phone: '9876543216',
+        description: 'Prime commercial office space in downtown Seattle, suitable for tech startups and established businesses.',
+        amenities: ['High-Speed Fiber', 'Conference Rooms', 'Kitchenette', 'Reception Area'],
+        phone: '555-0106',
       },
       {
-        title: 'Farmhouse with Acreage',
-        location: 'Lonavala, Maharashtra',
-        price: 18000000,
+        title: 'Ranch-Style Home with Acreage',
+        location: 'Denver, CO', // Ranch style fits Denver outskirts
+        price: 850000, // USD
         image: getPropertyImages(2),
         beds: 3,
-        baths: 3,
+        baths: 2,
         sqft: 2500,
-        type: 'Farmhouse',
-        availability: 'Resale',
-        description: 'A serene farmhouse in Lonavala with ample land, perfect for weekend getaways or organic farming.',
-        amenities: ['Large Garden', 'Outhouse', 'Borewell', 'Fruit Trees'],
-        phone: '9876543217',
+        type: 'House', // Ranch is a type of house
+        availability: 'For Sale',
+        description: 'A spacious ranch-style home near Denver with ample land, perfect for those seeking space and mountain views.',
+        amenities: ['Large Deck', 'Workshop', 'Horse Permitted', 'Mountain Views'],
+        phone: '555-0107',
       },
       {
-        title: 'Compact City Center Flat',
-        location: 'Kolkata, West Bengal',
-        price: 5500000,
+        title: 'Historic Townhouse',
+        location: 'Boston, MA',
+        price: 980000, // USD
         image: getPropertyImages(1),
         beds: 2,
-        baths: 1,
-        sqft: 800,
-        type: 'Apartment',
-        availability: 'Ready to move',
-        description: 'A compact and well-maintained flat in the bustling city center of Kolkata.',
-        amenities: ['Lift', 'Security', 'Proximity to Metro'],
-        phone: '9876543218',
+        baths: 1.5,
+        sqft: 1600,
+        type: 'Townhouse',
+        availability: 'For Sale',
+        description: 'A beautifully maintained historic townhouse in a charming Boston neighborhood.',
+        amenities: ['Original Hardwood Floors', 'Private Patio', 'Walk to Shops'],
+        phone: '555-0108',
       },
       {
-        title: 'Plot for Custom Build',
-        location: 'Jaipur, Rajasthan',
-        price: 6000000,
-        image: [realEstateImagePool[15]], // Specifically picking a plot/land image
+        title: 'Residential Lot for Custom Home',
+        location: 'Phoenix, AZ',
+        price: 150000, // USD
+        image: [realEstateImagePool[14]], // Specifically picking a plot/land image
         beds: 0,
         baths: 0,
-        sqft: 2400,
-        type: 'Plot',
+        sqft: 10890, // Quarter acre lot
+        type: 'Lot/Land',
         availability: 'For Sale',
-        description: 'Residential plot in a gated community in Jaipur, ideal for building your dream home.',
-        amenities: ['Gated Community', 'Clubhouse Access', 'Park Facing'],
-        phone: '9876543219',
+        description: 'Residential lot in a developing Phoenix suburb, ideal for building your dream custom home.',
+        amenities: ['Utilities Available', 'Mountain Views', 'No HOA'],
+        phone: '555-0109',
       },
        {
-        title: 'Elegant Duplex Home',
-        location: 'Noida, Uttar Pradesh',
-        price: 15000000,
+        title: 'Elegant Duplex in Miami',
+        location: 'Miami, FL',
+        price: 1750000, // USD
         image: getPropertyImages(2),
         beds: 4,
-        baths: 3,
-        sqft: 2200,
+        baths: 3.5,
+        sqft: 3200,
         type: 'Duplex',
-        availability: 'Ready to move',
-        description: 'A beautifully designed duplex home in a prime locality of Noida, offering ample space and modern interiors.',
-        amenities: ['Modular Kitchen', 'Balconies', 'Reserved Parking', 'Power Backup'],
-        phone: '9876543220',
+        availability: 'For Sale',
+        description: 'A beautifully designed duplex home in a prime Miami location, offering ample space, modern interiors, and a private yard.',
+        amenities: ['Impact Windows', 'Rooftop Deck', 'Private Yard', 'Smart Appliances'],
+        phone: '555-0110',
       }
     ];
     const createdProperties = await Property.insertMany(propertiesToCreate);
@@ -273,7 +273,7 @@ const importData = async () => {
         date: new Date(new Date().setDate(new Date().getDate() + 7)),
         time: '10:00 AM',
         status: 'pending',
-        notes: 'Interested in understanding the society maintenance.',
+        notes: 'Interested in viewing the loft next week.',
       },
       {
         propertyId: createdProperties[1]._id,
@@ -281,9 +281,9 @@ const importData = async () => {
         date: new Date(new Date().setDate(new Date().getDate() + 10)),
         time: '02:30 PM',
         status: 'confirmed',
-        meetingLink: 'https://meet.google.com/samplelink',
-        meetingPlatform: 'google-meet',
-        notes: 'Virtual tour requested.',
+        meetingLink: 'https://zoom.us/j/1234567890',
+        meetingPlatform: 'zoom',
+        notes: 'Virtual tour scheduled for the Malibu villa.',
       },
       {
         propertyId: createdProperties[2]._id,
@@ -299,15 +299,15 @@ const importData = async () => {
     // --- Create Form Submissions ---
     const formsToCreate = [
       {
-        name: 'Alice Wonderland',
-        email: 'alice.w@example.com',
-        phone: '1234567890',
-        message: 'I would like to know more about properties in South Mumbai.',
+        name: 'Michael Scott',
+        email: 'michael.s@example.com',
+        phone: '555-0200',
+        message: 'I would like to know more about properties in Austin, TX.',
       },
       {
-        name: 'Bob The Builder',
-        email: 'bob.b@example.com',
-        message: 'Are there any commercial properties available for lease?',
+        name: 'Pam Beesly',
+        email: 'pam.b@example.com',
+        message: 'Are there any art studio spaces available for lease in Philadelphia?',
       },
     ];
     await Form.insertMany(formsToCreate);
@@ -315,8 +315,8 @@ const importData = async () => {
 
     // --- Create Newsletter Subscriptions ---
     const newsToCreate = [
-      { email: 'subscriber1@example.com' },
-      { email: 'subscriber2@example.net' },
+      { email: 'dwight.k.schrute@example.com' },
+      { email: 'angela.martin@example.net' },
       { email: adminUser.email },
     ];
     await News.insertMany(newsToCreate);
