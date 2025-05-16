@@ -221,34 +221,17 @@ const PropertyDetails = () => {
     }} />}
     <div className="bg-gray-50 min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
-        {/* Back/Close Button - Option 1: Modify existing button */}
         <motion.button
-            onClick={handleCloseAndReturnToList} // Changed to navigate directly to /properties
+                onClick={handleCloseAndReturnToList}
             className="mb-6 flex items-center text-blue-600 hover:text-blue-800 transition-colors group"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
             aria-label="Back to properties list"
-        >
+            >
             <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
             Back to Properties
-        </motion.button>
-
-        {/* Option 2: Add a dedicated "Close" button (e.g., top right of the content area) */}
-        {/* 
-        <div className="relative"> // If you add a close button within the main content area
-            <motion.button
-                onClick={handleCloseAndReturnToList}
-                className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-full transition-colors z-20"
-                aria-label="Close property details"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5 }}
-            >
-                <X size={24} />
             </motion.button>
-        */}
-
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Image Gallery */}
           <motion.div 
@@ -317,7 +300,7 @@ const PropertyDetails = () => {
             )}
           </motion.div>
 
-          {/* Property Info */}
+          {/* Property Info (Call to Action Card) */}
           <motion.div 
             className="lg:col-span-2"
             initial={{ opacity: 0, x: 20 }}
@@ -325,14 +308,14 @@ const PropertyDetails = () => {
             transition={{ delay: 0.3 }}
           >
             <div className="bg-white p-6 sm:p-8 rounded-xl shadow-xl sticky top-8">
-              <div className="flex justify-between items-center mb-3"> {/* Changed items-start to items-center for vertical alignment */}
+              <div className="flex justify-between items-center mb-3">
                 <span className={`px-3 py-1 text-xs font-semibold rounded-full
                   ${property.availability === 'Rent' || property.availability === 'rental'
                     ? 'bg-green-100 text-green-700'
                     : 'bg-blue-100 text-blue-700'}`}>
                   For {property.availability === 'Rent' || property.availability === 'rental' ? 'Rent' : 'Sale'}
                 </span>
-                <div className="flex items-center space-x-2"> {/* Group Share and Close buttons */}
+                <div className="flex items-center space-x-2">
                     <button 
                         onClick={handleShare} 
                         className="p-2 text-gray-500 hover:text-blue-600 hover:bg-gray-100 rounded-full transition-colors"
@@ -404,12 +387,29 @@ const PropertyDetails = () => {
             </div>
           </motion.div>
 
-          {/* Description and Amenities */}
+          {/* Location Section (Left Column, below image gallery) */}
           <motion.div 
-            className="lg:col-span-3 mt-8 lg:mt-0"
+            className="lg:col-span-3 mt-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
+          >
+            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-xl">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <Compass size={22} className="mr-3 text-blue-600"/>Location
+                </h2>
+                <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
+                    <p className="text-gray-500">Map placeholder for {property.location}</p>
+                </div>
+            </div>
+          </motion.div>
+          
+          {/* About this property & Amenities Section (Right Column, below CTA card) */}
+          <motion.div 
+            className="lg:col-span-2 mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }} // Adjusted delay for staggered effect
           >
             <div className="bg-white p-6 sm:p-8 rounded-xl shadow-xl">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">About this property</h2>
@@ -430,15 +430,6 @@ const PropertyDetails = () => {
                   </div>
     </>
               )}
-            </div>
-            
-            <div className="bg-white p-6 sm:p-8 rounded-xl shadow-xl mt-8">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
-                    <Compass size={22} className="mr-3 text-blue-600"/>Location
-                </h2>
-                <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
-                    <p className="text-gray-500">Map placeholder for {property.location}</p>
-                </div>
             </div>
           </motion.div>
         </div>
