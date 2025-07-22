@@ -17,8 +17,8 @@ import NotFoundPage from './components/Notfound';
 import { AuthProvider } from './context/AuthContext';
 import AIPropertyHub from './pages/Aiagent'
 import StructuredData from './components/SEO/StructuredData';
+import AccountPage from './pages/AccountPage';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 export const Backendurl = import.meta.env.VITE_API_BASE_URL;
 
@@ -43,10 +43,22 @@ const App = () => {
         <Route path="/about" element={<Aboutus />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/ai-property-hub" element={<AIPropertyHub />} />
-        <Route path="*" element={<NotFoundPage />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
-      <ToastContainer />
+          <ToastContainer 
+            position="bottom-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
     </Router>
     </AuthProvider>
     </HelmetProvider>

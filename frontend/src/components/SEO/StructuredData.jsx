@@ -1,57 +1,35 @@
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const StructuredData = ({ type, data }) => {
-  const location = useLocation();
-  const currentUrl = `https://buildestate.vercel.app${location.pathname}`;
-
-  // Different schema types based on page content
-  const schemas = {
-    website: {
+  const websiteSchema = {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: 'BuildEstate',
       url: 'https://buildestate.vercel.app',
       potentialAction: {
         '@type': 'SearchAction',
-        target: '{search_term_string}',
-        'query-input': 'required name=search_term_string'
-      }
+      target: 'https://buildestate.vercel.app/properties?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
     },
-    organization: {
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'BuildEstate',
-      url: 'https://buildestate.vercel.app',
-      logo: 'https://buildestate.vercel.app/logo.png',
-      sameAs: [
-        'https://github.com/AAYUSH412/Real-Estate-Website',
-        'https://linkedin.com/in/AAYUSH412'
-      ]
+  };
+
+  const propertyListingSchema = (listingData) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Product', // Or RealEstateListing for more specific schema
+    name: listingData.title,
+    description: listingData.description,
+    image: listingData.image,
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'USD', // Updated currency
+      price: listingData.price, // Ensure price is a number
+      availability: listingData.availability === 'Sale' ? 'https://schema.org/InStock' : 'https://schema.org/InStoreOnly', // Example mapping
+      url: `https://buildestate.vercel.app/properties/single/${listingData.id}`,
     },
-    property: {
-      '@context': 'https://schema.org',
-      '@type': 'RealEstateListing',
-      name: data?.title || 'Property Listing',
-      description: data?.description || 'Property details',
-      url: currentUrl,
-      datePosted: data?.createdAt || new Date().toISOString(),
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: data?.location || 'City',
-        addressRegion: data?.region || 'Region',
-        addressCountry: 'IN'
-      },
-      price: data?.price ? `₹${data.price}` : '',
-      floorSize: {
-        '@type': 'QuantitativeValue',
-        unitText: 'SQFT',
-        value: data?.sqft || ''
-      },
-      numberOfRooms: data?.beds || '',
-      numberOfBathroomsTotal: data?.baths || ''
-    },
-    aiHub: {
+    // Add more specific RealEstateListing properties if applicable
+  });
+  
+  const aiHubSchema = {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
       name: 'AI Property Hub',
@@ -61,11 +39,16 @@ const StructuredData = ({ type, data }) => {
       offers: {
         '@type': 'Offer',
         price: '0',
-        priceCurrency: 'INR',
+        priceCurrency: 'USD', // Updated currency
         availability: 'https://schema.org/InStock'
       }
-    }
-  };
+};
+
+  const schemas = {
+    website: websiteSchema,
+    propertyListing: data ? propertyListingSchema(data) : {},
+    aiHub: aiHubSchema
+};
 
   const schemaData = schemas[type] || schemas.website;
 
@@ -81,7 +64,5 @@ StructuredData.propTypes = {
     type: PropTypes.string.isRequired,
     data: PropTypes.object
 };
-
-
 
 export default StructuredData;
